@@ -34,6 +34,5 @@ async def getorder(x, orderid:Option(str,"Enter order ID")):
         await x.send(d)
         print(d)
         
-zzz = True
-while zzz == True:
+while True:
     bot.run(token)
