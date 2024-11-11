@@ -6,7 +6,8 @@ import json
 
 
 bot = commands.Bot(prefix = commands.when_mentioned_or('!'))
-token='MTAwMzQ3NzUxNDc2Njc3ODM5OA.GKVbUi.Vr_I0r44wbDTAHGgmIGu22JwHcJqmdtMvPxokE'
+token=''
+url = 'https://cdbbe2bb52b6776:401309836a2ab4d8a93b@www.sendowl.com/api/v1/orders/'
 
 @bot.event
 async def on_ready():
@@ -18,9 +19,9 @@ async def getorder(x, orderid:Option(str,"Enter order ID")):
     list = []
     print('Recieved request')
     print(x,'x')
-    r = requests.get('https://cdbbe2bb52b6776:401309836a2ab4d8a93b@www.sendowl.com/api/v1/orders/' + str(orderid) + '/licenses', headers = {'Accept': 'application/json'})
+    r = requests.get(url + str(orderid) + '/licenses', headers = {'Accept': 'application/json'})
     list = []
-    r = requests.get('https://cdbbe2bb52b6776:401309836a2ab4d8a93b@www.sendowl.com/api/v1/orders/' + str(orderid) + '/licenses', headers = {'Accept': 'application/json'})
+    r = requests.get(url + str(orderid) + '/licenses', headers = {'Accept': 'application/json'})
     text = json.loads(r.text)
     for d in text:
         getkey = d.get('license')
@@ -28,7 +29,6 @@ async def getorder(x, orderid:Option(str,"Enter order ID")):
         orderid = getkey.get('order_id')
         list.append(key)
     message = 'Order ID' +  str(orderid) + ' contains the following One Clicks: '
-    print(message)
     await x.send(message)
     for d in list:
         await x.send(d)
